@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
   compileSdkVersion 25
@@ -17,13 +18,33 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  packagingOptions {
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+  }
 }
 
+def APPCOMPAT_VERSION = "25.0.0"
+def ESPRESSO_RUNNER_VERSION = "0.5"
+
+
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
-  compile 'com.android.support:appcompat-v7:25.0.0'
+  compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'
+  compile "com.android.support:appcompat-v7:${APPCOMPAT_VERSION}"
+  compile "com.android.support:recyclerview-v7:${APPCOMPAT_VERSION}"
+  compile 'net.danlew:android.joda:2.9.5'
+  apt 'com.google.auto.value:auto-value:1.2'
+  provided 'com.google.auto.value:auto-value:1.2'
+  apt 'com.ryanharter.auto.value:auto-value-parcel:0.2.0'
+
+  compile group: 'com.github.javafaker', name: 'javafaker', version: '0.11'
+  testCompile 'org.assertj:assertj-core:3.6.1'
+
+  androidTestCompile "com.android.support:support-annotations:${APPCOMPAT_VERSION}"
+  androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+  androidTestCompile "com.android.support.test:runner:${ESPRESSO_RUNNER_VERSION}"
+  androidTestCompile "com.android.support.test:rules:${ESPRESSO_RUNNER_VERSION}"
+
 }
