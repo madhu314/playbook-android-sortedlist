@@ -76,8 +76,19 @@ Simply using [SortedListAdapterCallback] (https://developer.android.com/referenc
 Lets now take this learning and use it in UI.
 
 ##Article SortedList & RecyclerView
-//TODO
+`BasicSortedArticlesActivity.java` is a simple android activity show casing two sets of articles. One in the recycler grid view and another in the horizontal recycler view. The working of the demo is as below
 
+* Initially horizontal list contains n artciles sorted from n days prior to today.
+* If you click on an item in horizontal recycler view it will get removed from there and get added to grid recycler view.
+* Similarly a click on an article in gridview will remove it from there and add it to the bottom horizontal view.
+
+If you look into the code, no where do we calculate the position of the item to be inserted or removed. All we do is add/remove items from the sorted list and let it figure out the callbacks to the recycler view.
+
+If you play around with these article lists, you will notice that calculation of positions can be completely avoided. Since every presentation of a list is sorted in some way, it only makes sense to make `SortedList` as the default data structure to hold data in recycler adapter.
+
+If we just change the comparision logic, which can be easily decoupled with a comparator, we could even use the same recycler view and adapter to handle multiple types of sort options in a recyclerview based list.
+
+ 
 ##Section Lists with SortedList & RecyclerView
 //TODO
 

@@ -67,7 +67,7 @@ import java.util.Comparator;
     return new AutoValue_Article.Builder().id(id)
         .publishedTime(TimestampMaker.current())
         .content(faker.lorem().paragraph(Utils.randomWithRange(3, 8)))
-        .author(faker.name().fullName());
+        .author(faker.name().firstName());
   }
 
   @AutoValue.Builder abstract static class Builder {
