@@ -382,7 +382,7 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
 
   public static class ArticleDataset {
 
-    private static final int DAYS_PRIOR = 9;
+    private static final int DAYS_PRIOR = 20;
     SortedList<Article> sortedList = null;
 
     public ArticleDataset(RecyclerView.Adapter adapter) {

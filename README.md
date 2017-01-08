@@ -76,7 +76,7 @@ Simply using [SortedListAdapterCallback] (https://developer.android.com/referenc
 Lets now take this learning and use it in UI.
 
 ##Article SortedList & RecyclerView
-`BasicSortedArticlesActivity.java` is a simple android activity show casing two sets of articles. One in the recycler grid view and another in the horizontal recycler view. The working of the demo is as below
+`BasicSortedArticlesActivity.java` is an activity show casing two sets of articles. One in the recycler grid view and another in the horizontal recycler view. The working of the demo is as below
 
 * Initially horizontal list contains n artciles sorted from n days prior to today.
 * If you click on an item in horizontal recycler view it will get removed from there and get added to grid recycler view.
@@ -88,6 +88,12 @@ If you play around with these article lists, you will notice that calculation of
 
 If we just change the comparision logic, which can be easily decoupled with a comparator, we could even use the same recycler view and adapter to handle multiple types of sort options in a recyclerview based list.
 
+## Multiple sort options with SortedList & RecyclerView
+`ArticleSortOptionsActivity.java` demonstrates implementation of multiple sort options on a single dataset.
+
+Articles can be compared by timestamp, author, content and category. When a sort option change is triggered by UI, we make a call to dataset to change the sorting comparator. 
+
+`changeSortType` method on the dataset 
  
 ##Section Lists with SortedList & RecyclerView
 //TODO

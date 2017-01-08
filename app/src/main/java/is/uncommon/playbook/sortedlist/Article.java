@@ -9,18 +9,44 @@ import java.util.Comparator;
  * Created by madhu on 29/11/16.
  */
 @AutoValue public abstract class Article implements Parcelable {
+  public static final String[] CATEGORIES = new String[] {
+      "Business", "Entertainment", "Technology", "National", "International"
+  };
 
   public static class ArticleTimestampComparator implements Comparator<Article> {
-
     @Override public int compare(Article first, Article second) {
       return Long.compare(first.publishedTime(), second.publishedTime());
     }
   }
 
+  public static class ArticleAuthorComparator implements Comparator<Article> {
+    @Override public int compare(Article first, Article second) {
+      return first.author().compareToIgnoreCase(second.author());
+    }
+  }
+
+  public static class ArticleContentComparator implements Comparator<Article> {
+    @Override public int compare(Article first, Article second) {
+      return first.content().compareToIgnoreCase(second.content());
+    }
+  }
+
+  public static class ArticleCategoryComparator implements Comparator<Article> {
+    @Override public int compare(Article first, Article second) {
+      return first.category().compareToIgnoreCase(second.category());
+    }
+  }
+
   public static final Faker faker = new Faker();
 
-  public static final ArticleTimestampComparator articleTimestampComparator =
+  public static final ArticleTimestampComparator timestampComparator =
       new ArticleTimestampComparator();
+  public static final ArticleAuthorComparator authorComparator =
+      new ArticleAuthorComparator();
+  public static final ArticleContentComparator contentComparator =
+      new ArticleContentComparator();
+  public static final ArticleCategoryComparator categoryComparator =
+      new ArticleCategoryComparator();
 
   public static Article past() {
     return builder().publishedTime(TimestampMaker.past()).build();
@@ -34,8 +60,12 @@ import java.util.Comparator;
     return builder().publishedTime(TimestampMaker.current()).build();
   }
 
+  public int compare(Article article, Comparator<Article> articleComparator) {
+    return articleComparator.compare(this, article);
+  }
+
   public int compare(Article article) {
-    return articleTimestampComparator.compare(this, article);
+    return timestampComparator.compare(this, article);
   }
 
   public boolean areContentsTheSame(Article article) {
@@ -54,6 +84,8 @@ import java.util.Comparator;
 
   public abstract String author();
 
+  public abstract String category();
+
   public Article dupe() {
     return toBuilder().build();
   }
@@ -67,7 +99,8 @@ import java.util.Comparator;
     return new AutoValue_Article.Builder().id(id)
         .publishedTime(TimestampMaker.current())
         .content(faker.lorem().paragraph(Utils.randomWithRange(3, 8)))
-        .author(faker.name().firstName());
+        .author(faker.name().firstName().trim())
+        .category(CATEGORIES[(int) Math.round(Math.random() * 10) % CATEGORIES.length]);
   }
 
   @AutoValue.Builder abstract static class Builder {
@@ -78,6 +111,8 @@ import java.util.Comparator;
     public abstract Builder content(String content);
 
     public abstract Builder author(String author);
+
+    public abstract Builder category(String category);
 
     abstract Article build();
   }
