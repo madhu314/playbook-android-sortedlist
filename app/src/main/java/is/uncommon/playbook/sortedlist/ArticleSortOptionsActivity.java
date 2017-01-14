@@ -202,11 +202,13 @@ public class ArticleSortOptionsActivity extends AppCompatActivity {
 
     public void changeSortType(int sortType) {
       this.sortType = sortType;
+      List<Article> items = new ArrayList<>();
       for (int j = 0; j < sortedList.size(); j++) {
-        for (int i = 0; i < sortedList.size(); i++) {
-          sortedList.recalculatePositionOfItemAt(i);
-        }
+        items.add(sortedList.get(j));
       }
+      sortedList.clear();
+      sortedList.addAll(items);
+      sortedList.endBatchedUpdates();
     }
 
     public Article getArticle(int position) {

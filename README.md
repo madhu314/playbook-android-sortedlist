@@ -25,8 +25,8 @@ When articles are presented in UI, generally we would want to sort them by their
 * `orderedArticleList` instance contains articles ordered according to their published time beginning from older article to the newer article. 
 * `shuffledArticles`instance contains the same articles (different object instances, as our articles are immutable) shuffled.
 * `SortedListCallbackRecorder` class is a simple implementation of SortedList Callback that records all the callbacks emitted by SortedList. There is a utility method `clear` to erase all the existing records.  
-* Test rule exposed `SortedListCallbackRecorder` instance as `callbackRecorder`
-* Finally the rest rule also gives `sortedList` instance which is an empty SortedList that is ready for testing.
+* Test rule exposes `SortedListCallbackRecorder` instance as `callbackRecorder`
+* Finally test rule also gives `sortedList` instance which is an empty SortedList that is ready for testing.
 
 #### SortedList Test Class
 `SortedListCallbackUnitTest.java` is our test class. It sets up `SortedListTestSetup` rule as `fixture` to ensure every test case gives us a new fixture data. Lets go through each of the tests in details.
