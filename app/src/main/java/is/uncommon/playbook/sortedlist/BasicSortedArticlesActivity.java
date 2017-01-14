@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -43,6 +44,7 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_basic_sorted_articles);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     ButterKnife.bind(this);
     doSubscriptions();
 
@@ -61,6 +63,13 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
     } else {
       getArticleGridFragment().eventSubject(eventSubject);
     }
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      finish();
+      return true;
+    } return super.onOptionsItemSelected(item);
   }
 
   @Override public void onAttachFragment(Fragment fragment) {

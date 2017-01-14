@@ -94,13 +94,3 @@ If we just change the comparision logic, which can be easily decoupled with a co
 Articles can be compared by timestamp, author, content and category. When a sort option change is triggered by UI, we make a call to dataset to change the sorting comparator. 
 
 `changeSortType` method on the dataset 
- 
-##Section Lists with SortedList & RecyclerView
-//TODO
-
-##Paging in Lists with SortedList & RecyclerView
-//TODO
-
-##Real time messaging UI powered by SortedList & RecyclerView
-//TODO
-

@@ -1,7 +1,6 @@
 package is.uncommon.playbook.sortedlist;
 
 import android.content.DialogInterface;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -48,6 +47,7 @@ public class ArticleSortOptionsActivity extends AppCompatActivity {
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_sort_options);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     binder = ButterKnife.bind(this);
     setupRecycler();
   }
@@ -66,29 +66,14 @@ public class ArticleSortOptionsActivity extends AppCompatActivity {
     adapter.articleDataset(dataset);
     recyclerView.setAdapter(adapter);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
-    recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-      @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-          RecyclerView.State state) {
-        super.getItemOffsets(outRect, view, parent, state);
-        float offsetFloat =
-            2f * parent.getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
-        int halfOffset = Math.round(offsetFloat / 2f);
-        int offset = Math.round(offsetFloat);
-        int position = parent.getChildAdapterPosition(view);
-        if (position == 0) {
-          outRect.set(offset, offset, offset, halfOffset);
-        } else if (position > 0 && position < parent.getAdapter().getItemCount() - 1) {
-          outRect.set(offset, halfOffset, offset, halfOffset);
-        } else if (position == parent.getAdapter().getItemCount() - 1) {
-          outRect.set(offset, halfOffset, offset, offset);
-        }
-      }
-    });
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.menu_sort) {
       showSortOptionsDialog();
+      return true;
+    } else if (item.getItemId() == android.R.id.home) {
+      finish();
       return true;
     }
     return super.onOptionsItemSelected(item);
@@ -109,7 +94,8 @@ public class ArticleSortOptionsActivity extends AppCompatActivity {
             != ArticleSortOptionsActivity.this.sortType) {
           runOnUiThread(new Runnable() {
             @Override public void run() {
-              ArticleSortOptionsActivity.this.sortType = ArticleSortOptionsActivity.this.newSortType;
+              ArticleSortOptionsActivity.this.sortType =
+                  ArticleSortOptionsActivity.this.newSortType;
               ArticleSortOptionsActivity.this.dataset.changeSortType(
                   ArticleSortOptionsActivity.this.sortType);
             }
@@ -215,19 +201,12 @@ public class ArticleSortOptionsActivity extends AppCompatActivity {
     }
 
     public void changeSortType(int sortType) {
-      List<Article> articles = new ArrayList<>();
-      for (int i = 0; i < sortedList.size(); i++) {
-        articles.add(sortedList.get(i));
-      }
-      sortedList.beginBatchedUpdates();
-      sortedList.clear();
-      sortedList.endBatchedUpdates();
-
-      sortedList.beginBatchedUpdates();
       this.sortType = sortType;
-      sortedList.addAll(articles);
-      sortedList.endBatchedUpdates();
-
+      for (int j = 0; j < sortedList.size(); j++) {
+        for (int i = 0; i < sortedList.size(); i++) {
+          sortedList.recalculatePositionOfItemAt(i);
+        }
+      }
     }
 
     public Article getArticle(int position) {
