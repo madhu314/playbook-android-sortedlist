@@ -31,7 +31,11 @@ public class MainActivity extends AppCompatActivity {
     startActivity(new Intent(this, BasicSortedArticlesActivity.class));
   }
 
-  @OnClick(R.id.sortOptions) public void sortOptions() {
+  @OnClick(R.id.sortOptions) public void sortOptionsClicked() {
     startActivity(new Intent(this, ArticleSortOptionsActivity.class));
+  }
+
+  @OnClick(R.id.sections) public void sectionsClicked() {
+    startActivity(new Intent(this, SectionArticlesActivity.class));
   }
 }

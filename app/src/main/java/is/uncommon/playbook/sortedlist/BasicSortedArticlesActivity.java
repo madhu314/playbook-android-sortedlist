@@ -69,7 +69,8 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
     if (item.getItemId() == android.R.id.home) {
       finish();
       return true;
-    } return super.onOptionsItemSelected(item);
+    }
+    return super.onOptionsItemSelected(item);
   }
 
   @Override public void onAttachFragment(Fragment fragment) {
@@ -157,7 +158,7 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
     }
 
     @Override protected ArticleDataset createDataset(ArticlesAdapter adapter) {
-      ArticleDataset dataset = new ArticleDataset(adapter);
+      ArticleDataset dataset = new ArticleDataset(recyclerView, adapter);
       dataset.generateRandom();
       return dataset;
     }
@@ -222,7 +223,7 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
     }
 
     @Override protected ArticleDataset createDataset(ArticlesAdapter adapter) {
-      ArticleDataset dataset = new ArticleDataset(adapter);
+      ArticleDataset dataset = new ArticleDataset(recyclerView, adapter);
       return dataset;
     }
 
@@ -359,12 +360,14 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
       private final TextView contentView;
       private final TextView dateView;
       private final TextView authorView;
+      private final TextView categoryView;
 
       public ViewHolder(View itemView) {
         super(itemView);
         contentView = (TextView) itemView.findViewById(R.id.content);
         dateView = (TextView) itemView.findViewById(R.id.date);
         authorView = (TextView) itemView.findViewById(R.id.author);
+        categoryView = (TextView) itemView.findViewById(R.id.category);
       }
 
       public static ViewGroup create(ViewGroup parent) {
@@ -377,6 +380,7 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
         contentView.setText(article.content());
         DateTime dateTime = new DateTime(article.publishedTime());
         dateView.setText(dateTime.toString(dateTimeFormatter));
+        categoryView.setText(article.category());
         authorView.setText("By " + article.author());
         itemView.setOnClickListener(new View.OnClickListener() {
           @Override public void onClick(View view) {
@@ -394,7 +398,7 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
     private static final int DAYS_PRIOR = 20;
     SortedList<Article> sortedList = null;
 
-    public ArticleDataset(RecyclerView.Adapter adapter) {
+    public ArticleDataset(final RecyclerView recyclerView, final RecyclerView.Adapter adapter) {
       this.sortedList = new SortedList<>(Article.class,
           new SortedList.BatchedCallback<>(new SortedListAdapterCallback<Article>(adapter) {
             @Override public int compare(Article a1, Article a2) {
@@ -407,6 +411,11 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
 
             @Override public boolean areItemsTheSame(Article item1, Article item2) {
               return item1.areItemsTheSame(item2);
+            }
+
+            @Override public void onInserted(int position, int count) {
+              super.onInserted(position, count);
+              recyclerView.scrollToPosition(position);
             }
           }));
     }

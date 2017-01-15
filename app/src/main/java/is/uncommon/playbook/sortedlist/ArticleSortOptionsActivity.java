@@ -61,7 +61,7 @@ public class ArticleSortOptionsActivity extends AppCompatActivity {
     recyclerView.setLayoutManager(
         new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
     adapter = new ArticlesAdapter();
-    dataset = new ArticleDataset(adapter);
+    dataset = new ArticleDataset(recyclerView, adapter);
     dataset.generateRandom();
     adapter.articleDataset(dataset);
     recyclerView.setAdapter(adapter);
@@ -168,7 +168,7 @@ public class ArticleSortOptionsActivity extends AppCompatActivity {
     SortedList<Article> sortedList = null;
     private int sortType = SORT_TYPE_TIMESTAMP;
 
-    public ArticleDataset(RecyclerView.Adapter adapter) {
+    public ArticleDataset(final RecyclerView recyclerView, final RecyclerView.Adapter adapter) {
       this.sortedList = new SortedList<>(Article.class,
           new SortedList.BatchedCallback<>(new SortedListAdapterCallback<Article>(adapter) {
             @Override public int compare(Article a1, Article a2) {
@@ -181,6 +181,11 @@ public class ArticleSortOptionsActivity extends AppCompatActivity {
 
             @Override public boolean areItemsTheSame(Article item1, Article item2) {
               return item1.areItemsTheSame(item2);
+            }
+
+            @Override public void onInserted(int position, int count) {
+              super.onInserted(position, count);
+              recyclerView.scrollToPosition(position);
             }
           }));
     }
