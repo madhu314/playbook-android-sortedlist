@@ -37,7 +37,7 @@ public class SortedListCallbackUnitTest {
     assertThat(fixture.sortedList().size()).isEqualTo(0);
 
     Article article = fixture.orderedArticleList()
-        .get(Utils.randomWithRange(0, fixture.orderedArticleList().size() - 1));
+        .get(Article.Utils.randomWithRange(0, fixture.orderedArticleList().size() - 1));
 
     fixture.sortedList().add(article);
     assertThat(fixture.callbackRecorder().insertions().size()).isEqualTo(1);
@@ -49,7 +49,7 @@ public class SortedListCallbackUnitTest {
     fixture.callbackRecorder().clear();
 
     assertThat(fixture.sortedList().size()).isEqualTo(1);
-    for (int i = 0; i < Utils.randomWithRange(1, 10); i++) {
+    for (int i = 0; i < Article.Utils.randomWithRange(1, 10); i++) {
       fixture.sortedList().add(article.dupe());
     }
     assertThat(fixture.sortedList().size()).isEqualTo(1);
@@ -98,10 +98,10 @@ public class SortedListCallbackUnitTest {
 
     fixture.callbackRecorder().clear();
 
-    int index = Utils.randomWithRange(0, fixture.sortedList().size() - 1);
+    int index = Article.Utils.randomWithRange(0, fixture.sortedList().size() - 1);
     Article article = fixture.sortedList().get(index);
     Article contentChanged =
-        article.toBuilder().content(Utils.shuffleString(article.content())).build();
+        article.toBuilder().content(Article.Utils.shuffleString(article.content())).build();
     fixture.sortedList().add(contentChanged);
     Article changed = fixture.sortedList().get(index);
     assertThat(changed.content()).isEqualTo(contentChanged.content());
@@ -122,7 +122,7 @@ public class SortedListCallbackUnitTest {
 
     fixture.callbackRecorder().clear();
 
-    int index = Utils.randomWithRange(0, fixture.sortedList().size() - 1);
+    int index = Article.Utils.randomWithRange(0, fixture.sortedList().size() - 1);
     Article articleToDelete = fixture.sortedList().get(index).dupe();
 
     boolean deleted = fixture.sortedList().remove(articleToDelete);

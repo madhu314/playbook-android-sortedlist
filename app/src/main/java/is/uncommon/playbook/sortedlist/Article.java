@@ -3,7 +3,12 @@ package is.uncommon.playbook.sortedlist;
 import android.os.Parcelable;
 import com.github.javafaker.Faker;
 import com.google.auto.value.AutoValue;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import org.joda.time.DateTime;
 
 /**
  * Created by madhu on 29/11/16.
@@ -41,10 +46,8 @@ import java.util.Comparator;
 
   public static final ArticleTimestampComparator timestampComparator =
       new ArticleTimestampComparator();
-  public static final ArticleAuthorComparator authorComparator =
-      new ArticleAuthorComparator();
-  public static final ArticleContentComparator contentComparator =
-      new ArticleContentComparator();
+  public static final ArticleAuthorComparator authorComparator = new ArticleAuthorComparator();
+  public static final ArticleContentComparator contentComparator = new ArticleContentComparator();
   public static final ArticleCategoryComparator categoryComparator =
       new ArticleCategoryComparator();
 
@@ -94,7 +97,7 @@ import java.util.Comparator;
     return new AutoValue_Article.Builder(this);
   }
 
-  static Builder builder() {
+  public static Builder builder() {
     int id = IdMaker.next();
     return new AutoValue_Article.Builder().id(id)
         .publishedTime(TimestampMaker.current())
@@ -103,7 +106,7 @@ import java.util.Comparator;
         .category(CATEGORIES[(int) Math.round(Math.random() * 10) % CATEGORIES.length]);
   }
 
-  @AutoValue.Builder abstract static class Builder {
+  @AutoValue.Builder public abstract static class Builder {
     public abstract Builder id(int id);
 
     public abstract Builder publishedTime(long epochTime);
@@ -114,6 +117,55 @@ import java.util.Comparator;
 
     public abstract Builder category(String category);
 
-    abstract Article build();
+    public abstract Article build();
+  }
+
+  public static class IdMaker {
+    static final AtomicInteger atomicInteger = new AtomicInteger();
+
+    static int next() {
+      return atomicInteger.incrementAndGet();
+    }
+  }
+
+  public static class TimestampMaker {
+    static final AtomicInteger future = new AtomicInteger();
+    static final AtomicInteger past = new AtomicInteger();
+
+    static long future() {
+      return DateTime.now().plusDays(future.incrementAndGet()).getMillis();
+    }
+
+    static long past() {
+      return DateTime.now().plusDays(past.decrementAndGet()).getMillis();
+    }
+
+    static long current() {
+      return DateTime.now().getMillis();
+    }
+  }
+
+  public static class Utils {
+
+    public static int randomWithRange(int min, int max) {
+      if (min == max) return min;
+      if (max < min) throw new IllegalArgumentException("Max should be greater than min");
+
+      int range = max - min;
+      return (int) (Math.random() * range) + min;
+    }
+
+    public static String shuffleString(String string) {
+      char[] characters = string.toCharArray();
+      List<Character> bigChars = new ArrayList<>();
+      for (int i = 0; i < characters.length; i++) {
+        bigChars.add(characters[i]);
+      }
+      Collections.shuffle(bigChars);
+      for (int i = 0; i < bigChars.size(); i++) {
+        characters[i] = bigChars.get(i);
+      }
+      return String.valueOf(characters);
+    }
   }
 }
