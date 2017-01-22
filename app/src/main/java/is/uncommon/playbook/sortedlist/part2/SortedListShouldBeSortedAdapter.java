@@ -23,17 +23,19 @@ public class SortedListShouldBeSortedAdapter
           }
 
           @Override public boolean areItemsTheSame(Article item1, Article item2) {
-            return item1.areContentsTheSame(item2);
+            return item1.areItemsTheSame(item2);
           }
         });
     articleSortedList.addAll(articles);
   }
 
-  @Override public SortedListShouldBeSortedGridItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  @Override public SortedListShouldBeSortedGridItemViewHolder onCreateViewHolder(ViewGroup parent,
+      int viewType) {
     return SortedListShouldBeSortedGridItemViewHolder.create(parent);
   }
 
-  @Override public void onBindViewHolder(SortedListShouldBeSortedGridItemViewHolder holder, int position) {
+  @Override
+  public void onBindViewHolder(SortedListShouldBeSortedGridItemViewHolder holder, int position) {
     holder.bindTo(articleSortedList.get(position));
   }
 
