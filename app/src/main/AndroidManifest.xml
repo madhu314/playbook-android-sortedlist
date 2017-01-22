@@ -15,9 +15,10 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".ArticleSortOptionsActivity" />
+    <activity android:name=".ArticleSortOptionsActivity"/>
     <activity android:name=".BasicSortedArticlesActivity"/>
     <activity android:name=".SectionArticlesActivity"/>
+    <activity android:name=".part1.IntegerListActivity" android:label="Integer List"/>
   </application>
 
 </manifest>
