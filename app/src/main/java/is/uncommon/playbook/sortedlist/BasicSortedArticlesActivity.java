@@ -1,7 +1,6 @@
 package is.uncommon.playbook.sortedlist;
 
 import android.app.Fragment;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
@@ -167,33 +166,13 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
       recyclerView.setLayoutManager(
           new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL,
               false));
-      recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-        @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-            RecyclerView.State state) {
-          super.getItemOffsets(outRect, view, parent, state);
-          float offsetFloat = parent.getResources()
-              .getDimensionPixelSize(R.dimen.horizontal_recycler_divider_width);
-          int halfOffset = Math.round(offsetFloat / 2f);
-          int offset = Math.round(offsetFloat);
-          int position = parent.getChildAdapterPosition(view);
-          if (position == 0 && parent.getAdapter().getItemCount() == 1) {
-            outRect.set(offset, offset, offset, offset);
-          } else if (position == 0) {
-            outRect.set(offset, offset, halfOffset, offset);
-          } else if (position > 0 && position < parent.getAdapter().getItemCount() - 1) {
-            outRect.set(halfOffset, offset, halfOffset, offset);
-          } else if (position == parent.getAdapter().getItemCount() - 1) {
-            outRect.set(halfOffset, offset, offset, offset);
-          }
-        }
-      });
     }
   }
 
   public static class ArticleGridFragment extends ArticleRecyclerFragment {
     public static final String TAG = ArticleGridFragment.class.getSimpleName();
     public static final String ITEM_CLICKED = TAG + ".itemClicked";
-    int spanCount = 3;
+    int spanCount = 2;
 
     public static final ArticleGridFragment create() {
       return new ArticleGridFragment();
@@ -203,9 +182,7 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
       return new ArticlesAdapter() {
         @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
           ViewGroup viewgroup = ViewHolder.create(parent);
-          int offset =
-              parent.getResources().getDimensionPixelSize(R.dimen.grid_recycler_divider_width);
-          int width = Math.round((float) parent.getWidth() / (float) spanCount) - 2 * offset;
+          int width = Math.round((float) parent.getWidth() / (float) spanCount);
           int height = width;
           ViewGroup.LayoutParams params = viewgroup.getLayoutParams();
           params.width = width;
@@ -229,37 +206,6 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
 
     @Override protected void setupRecycler() {
       recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), spanCount));
-      recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-        @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-            RecyclerView.State state) {
-          int offset =
-              parent.getResources().getDimensionPixelSize(R.dimen.grid_recycler_divider_width);
-          int position = parent.getChildAdapterPosition(view); // item position
-          int column = position % spanCount; // item column
-          int row = position / spanCount;
-          int lastRow = parent.getChildAdapterPosition(view) / spanCount;
-          if (parent.getChildAdapterPosition(view) % spanCount != 0) {
-            lastRow = lastRow + 1;
-          }
-
-          outRect.top = offset;
-          outRect.bottom = offset;
-          if (row == 0) {
-            outRect.top = 2 * offset;
-          }
-
-          if (column == 0) {
-            outRect.left = 2 * offset;
-            outRect.right = 0;
-          } else if (column == (spanCount - 1)) {
-            outRect.left = 0;
-            outRect.right = 2 * offset;
-          } else {
-            outRect.left = offset;
-            outRect.right = offset;
-          }
-        }
-      });
     }
   }
 
@@ -372,7 +318,7 @@ public class BasicSortedArticlesActivity extends AppCompatActivity {
 
       public static ViewGroup create(ViewGroup parent) {
         ViewGroup view = (ViewGroup) LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_article, parent, false);
+            .inflate(R.layout.item_grid_article, parent, false);
         return view;
       }
 

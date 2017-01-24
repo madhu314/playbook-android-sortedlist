@@ -50,7 +50,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="5"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         tools:text="Lorem Ipsum"
     />
