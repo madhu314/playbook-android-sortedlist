@@ -18,7 +18,7 @@ public class SortedListExplorationActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_sortedlist_exploration);
     unbinder = ButterKnife.bind(this);
-    Fragment fragment = SortedListMoveArticleFragment.create();
+    Fragment fragment = SortedListBatchOperationFragment.create();
     getFragmentManager().beginTransaction().add(fragmentContainer.getId(), fragment).commit();
   }
 
