@@ -62,10 +62,10 @@ public class ArticleDataset {
   public void restore(Bundle bundle) {
     if (bundle != null) {
       ArrayList<Article> articles = bundle.getParcelableArrayList(DATASET);
+      this.sortType = (SortType) bundle.getSerializable(SORT_TYPE);
       sortedList.beginBatchedUpdates();
       sortedList.addAll(articles);
       sortedList.endBatchedUpdates();
-      this.sortType = (SortType) bundle.getSerializable(SORT_TYPE);
     }
   }
 
@@ -85,14 +85,16 @@ public class ArticleDataset {
   }
 
   public void changeSortType(SortType sortType) {
-    this.sortType = sortType;
-    List<Article> items = new ArrayList<>();
-    for (int j = 0; j < sortedList.size(); j++) {
-      items.add(sortedList.get(j));
+    if (!this.sortType.equals(sortType)) {
+      this.sortType = sortType;
+      List<Article> items = new ArrayList<>();
+      for (int j = 0; j < sortedList.size(); j++) {
+        items.add(sortedList.get(j));
+      }
+      sortedList.clear();
+      sortedList.addAll(items);
+      sortedList.endBatchedUpdates();
     }
-    sortedList.clear();
-    sortedList.addAll(items);
-    sortedList.endBatchedUpdates();
   }
 
   public Article getArticle(int position) {

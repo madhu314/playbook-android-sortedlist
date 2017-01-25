@@ -9,7 +9,7 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity">
+    <activity android:name=".part3.DatasetActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
@@ -21,7 +21,7 @@
     <activity android:name=".part1.IntegerListActivity" android:label="Integer List"/>
     <activity android:name=".part2.SortedListExplorationActivity"
         android:label="SortedList Exploration"/>
-    <activity android:name=".part3.DatasetActivity"/>
+    <!--<activity android:name=".part3.DatasetActivity"/>-->
   </application>
 
 </manifest>
