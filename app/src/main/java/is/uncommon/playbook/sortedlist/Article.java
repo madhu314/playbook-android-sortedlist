@@ -15,7 +15,7 @@ import org.joda.time.DateTime;
  */
 @AutoValue public abstract class Article implements Parcelable {
   public static final String[] CATEGORIES = new String[] {
-      "Business", "Entertainment", "Technology", "National", "International"
+      "National", "International", "Business", "Technology", "Entertainment"
   };
 
   public static class ArticleTimestampComparator implements Comparator<Article> {

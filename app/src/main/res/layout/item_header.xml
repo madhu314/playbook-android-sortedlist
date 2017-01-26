@@ -3,7 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF">
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:background="#20000000">
 
   <TextView
       android:text="TextView"
@@ -15,6 +17,7 @@
       android:layout_height="wrap_content"
       android:id="@+id/text"
       android:gravity="center_vertical|left"
-      android:textColor="#2A2A2A"
+      android:textColor="#ffffff"
+      android:textAllCaps="true"
       android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 </LinearLayout>
