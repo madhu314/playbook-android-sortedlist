@@ -3,6 +3,9 @@ package is.uncommon.playbook.sortedlist;
 import android.os.Parcelable;
 import com.github.javafaker.Faker;
 import com.google.auto.value.AutoValue;
+import com.squareup.moshi.Json;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -79,15 +82,15 @@ import org.joda.time.DateTime;
     return this.id() == article.id();
   }
 
-  public abstract int id();
+  @Json(name = "id") public abstract int id();
 
-  public abstract long publishedTime();
+  @Json(name = "publishedTime") public abstract long publishedTime();
 
-  public abstract String content();
+  @Json(name = "content") public abstract String content();
 
-  public abstract String author();
+  @Json(name = "author") public abstract String author();
 
-  public abstract String category();
+  @Json(name = "category") public abstract String category();
 
   public Article dupe() {
     return toBuilder().build();
@@ -167,5 +170,9 @@ import org.joda.time.DateTime;
       }
       return String.valueOf(characters);
     }
+  }
+
+  public static JsonAdapter<Article> jsonAdapter(Moshi moshi) {
+    return new AutoValue_Article.MoshiJsonAdapter(moshi);
   }
 }

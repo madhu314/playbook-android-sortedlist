@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="is.uncommon.playbook.sortedlist">
 
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
   <application
       android:name=".MainApplication"
       android:allowBackup="true"
@@ -9,19 +12,18 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".part4.SectionListActivity" android:label="">
+    <activity android:name=".part5.PagingActivity" android:label="Pagination">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
     <activity android:name=".ArticleSortOptionsActivity"/>
-    <activity android:name=".BasicSortedArticlesActivity"/>
-    <activity android:name=".SectionArticlesActivity"/>
     <activity android:name=".part1.IntegerListActivity" android:label="Integer List"/>
     <activity android:name=".part2.SortedListExplorationActivity"
         android:label="SortedList Exploration"/>
-    <!--<activity android:name=".part3.DatasetActivity"/>-->
+    <activity android:name=".part4.SectionListActivity" android:label="" />
+    <activity android:name=".part3.DatasetActivity"/>
   </application>
 
 </manifest>

@@ -26,16 +26,4 @@ public class MainActivity extends AppCompatActivity {
     binder.unbind();
     super.onDestroy();
   }
-
-  @OnClick(R.id.addRemove) public void addRemoveClicked() {
-    startActivity(new Intent(this, BasicSortedArticlesActivity.class));
-  }
-
-  @OnClick(R.id.sortOptions) public void sortOptionsClicked() {
-    startActivity(new Intent(this, ArticleSortOptionsActivity.class));
-  }
-
-  @OnClick(R.id.sections) public void sectionsClicked() {
-    startActivity(new Intent(this, SectionArticlesActivity.class));
-  }
 }

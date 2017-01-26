@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+  <android.support.v7.widget.RecyclerView android:id="@+id/recycler"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="#2a2a2a">
+
+  </android.support.v7.widget.RecyclerView>
+  <LinearLayout android:id="@+id/loadingServerContainer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:orientation="vertical">
+    <ProgressBar android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"/>
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="8dp"
+        android:text="Setting up mock server..."
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="#ffffff"/>
+  </LinearLayout>
+</FrameLayout>
