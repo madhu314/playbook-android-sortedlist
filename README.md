@@ -1,5 +1,15 @@
 #SortedList Playbook
 
+##Blog post series
+A detailed exploration of `SortedList` through a series of posts is available below.
+
+* [Part 1 — Replacing ArrayList with SortedList](https://medium.com/r/?url=https%3A%2F%2Fblog.uncommon.is%2Fa-guide-to-sortedlist-part-1-5-replacing-arraylist-with-sortedlist-in-recyclerview-f73eca8bc602)
+* [Part 2 — Deep dive into data operations](https://medium.com/r/?url=https%3A%2F%2Fblog.uncommon.is%2Fa-guide-to-sortedlist-part-1-5-replacing-arraylist-with-sortedlist-in-recyclerview-f73eca8bc602)
+* [Part 3 — Separation of data and view concerns](https://medium.com/r/?url=https%3A%2F%2Fblog.uncommon.is%2Fa-guide-to-sortedlist-part-3-5-separation-of-data-and-view-concerns-2cecb21ea589%3Fsource%3Dcollection_home---4------0----------)
+* [Part 4 — Section Lists](https://medium.com/r/?url=https%3A%2F%2Fblog.uncommon.is%2Fa-guide-to-sortedlist-part-4-5-section-lists-2d101f3134f1)
+* [Part 5— Pagination](https://blog.uncommon.is/a-guide-to-sortedlist-part-5-5-pagination-dee0862dcee4)
+* [Bonus — Deep dive into data operations with JUnit4 tests](https://medium.com/r/?url=https%3A%2F%2Fblog.uncommon.is%2Fa-guide-to-sortedlist-bonus-deep-dive-into-data-operations-through-junit4-tests-df15d20b62d7%23.inm8ei3zo)
+
 ##What is a SortedList
 [SortedList](https://developer.android.com/reference/android/support/v7/util/SortedList.html) is a data structure to keep the items in the list sorted. Through its various callbacks it can provide information of what exactly has changed in the data structure when items are inserted/removed/updated.
 
